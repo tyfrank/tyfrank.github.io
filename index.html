@@ -8,6 +8,43 @@
 <style>
 :root{--ink:#251d36;--muted:#62566f;--purple:#6341bd;--pink:#fb60c7;--line:#e7ddeb}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:25px}body{margin:0;color:var(--ink);background:#fffafc;font:18px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--purple);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}a:focus-visible,summary:focus-visible{outline:3px solid #386af0;outline-offset:5px}.wrap{width:min(1100px,calc(100% - 44px));margin:auto}.skip{position:absolute;left:16px;top:-80px;background:white;padding:12px;z-index:3}.skip:focus{top:10px}header{border-top:7px solid transparent;border-image:linear-gradient(90deg,#356aff,#935fdc,#fb60c7) 1;background:#fff}nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:23px 0;flex-wrap:wrap}.brand{font-size:25px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--ink)}.brand span{color:#8b4ec6}nav .links{display:flex;gap:24px;flex-wrap:wrap;font-size:16px}nav .links a{color:var(--ink);text-decoration:none}.hero{padding:80px 0 75px;background:radial-gradient(ellipse at 90% 30%,#f9dff0,transparent 60%),radial-gradient(ellipse at 0 20%,#e3e7ff,transparent 65%)}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center}.eyebrow{font-weight:750;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-1.5px;line-height:1.06}h1{font-size:clamp(44px,6vw,72px);margin:18px 0 24px}h1 em{color:var(--purple)}h2{font-size:clamp(32px,4vw,46px);margin:10px 0 22px}h3{font-size:21px;line-height:1.3;margin:8px 0 12px}p{margin:0 0 20px}.lead{font-size:21px;color:#51465f;max-width:650px}.button{display:inline-flex;background:var(--purple);color:white;border-radius:100px;text-decoration:none;padding:14px 24px;font-weight:700;font-size:17px;min-height:48px}.button:hover{background:#492b97}.availability{font-size:16px;color:var(--muted);margin:14px 0 0}.sample{background:#fffdf9;transform:rotate(2deg);border:1px solid #e1d2df;border-radius:8px;padding:32px;box-shadow:0 24px 60px #5d335b1a}.sample .tag{font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}.sample blockquote{font:30px/1.55 Georgia,serif;margin:28px 0}.sample mark{background:#ffd1eb;color:#3d2346;padding:2px 6px;border-radius:4px}.sample .note{font-size:15px;color:var(--muted);margin:0}.section{padding:72px 0;border-bottom:1px solid var(--line)}.intro{max-width:750px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:32px}.card{background:#fff;border:1px solid var(--line);padding:26px;border-radius:18px}.number{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#eee7ff;color:var(--purple);font-weight:750;margin-bottom:14px}.card p{font-size:17px;color:var(--muted);margin-bottom:0}.tags{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 0}.tags span{border:1px solid #dfd0e6;border-radius:40px;padding:7px 15px;font-size:16px;background:#fff}.free{background:#f5effb}.fine{font-size:16px;color:var(--muted);margin:24px 0 0;max-width:830px}.about{display:grid;grid-template-columns:.65fr 1.35fr;gap:55px}.about p{max-width:690px}.support-head{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}details{border-bottom:1px solid var(--line);padding:20px 0}summary{font-weight:650;cursor:pointer;padding:4px 0}details p{margin:16px 0 0;max-width:850px;color:var(--muted)}.contact{margin-top:30px;background:#eee7fa;border-radius:18px;padding:26px;overflow-wrap:anywhere}.contact p:last-child{margin-bottom:0}footer{padding:35px 0;font-size:16px;color:var(--muted)}footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer a{margin-right:20px}@media(max-width:740px){.hero{padding:40px 0 50px}.hero-grid,.about{grid-template-columns:1fr;gap:32px}.grid{grid-template-columns:1fr}.section{padding:46px 0}.sample{max-width:430px;transform:none}.sample blockquote{font-size:27px}nav .links{gap:15px}.wrap{width:calc(100% - 36px)}.lead{font-size:19px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+
+<script type="module">
+import { analytics } from 'https://esm.sh/@heycatch/sdk@0.8.3';
+analytics.init({
+  projectKey: 'hck_pk_Bkr5P5a95viYzhg7clr8J9cRZ2AQ2mMn',
+  install: { framework: 'web', agent: 'codex' },
+  requestBatching: false,
+  optOutCapturingByDefault: true,
+  respectDnt: true
+});
+const notice = document.getElementById('analytics-choice');
+const preferenceKey = 'romanceme-website-analytics';
+let choice;
+try { choice = localStorage.getItem(preferenceKey); } catch {}
+if (choice === 'yes') analytics.optInCapturing();
+notice.hidden = choice === 'yes' || choice === 'no';
+document.getElementById('analytics-settings').hidden = false;
+document.getElementById('analytics-settings').addEventListener('click', () => {
+  notice.hidden = false;
+  document.getElementById('analytics-no').focus();
+});
+for (const value of ['yes', 'no']) {
+  document.getElementById('analytics-' + value).addEventListener('click', () => {
+    if (value === 'yes') analytics.optInCapturing();
+    else analytics.optOutCapturing();
+    try { localStorage.setItem(preferenceKey, value); } catch {}
+    notice.hidden = true;
+  });
+}
+</script>
+<style>
+#analytics-choice{position:fixed;bottom:16px;left:16px;right:16px;max-width:640px;margin:auto;background:white;border:1px solid #d7c7e4;border-radius:16px;padding:20px;box-shadow:0 8px 35px #251d3633;z-index:10;font-size:16px;line-height:1.5}
+#analytics-choice[hidden],#analytics-settings[hidden]{display:none}
+#analytics-choice p{margin:0 0 12px}
+#analytics-choice button{font:inherit;padding:10px 16px;border:1px solid #6341bd;border-radius:24px;background:white;color:#6341bd;cursor:pointer;margin:4px 8px 0 0}
+#analytics-settings{font:inherit;border:0;background:none;color:#6341bd;text-decoration:underline;cursor:pointer;padding:0}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -25,5 +62,10 @@
 <details><summary>Can I read offline?</summary><p>A network connection is recommended. Previously loaded content may remain visible temporarily, but complete offline reading is not guaranteed.</p></details>
 <details><summary>Where can I find privacy or account-deletion information?</summary><p>Read the <a href="https://tyfrank.github.io/romanceme-support/privacy.html">Privacy Policy</a> for information about data and deletion requests. You can also contact support for help with your account.</p></details>
 <div class="contact"><h3>Questions, feedback or a story suggestion?</h3><p><a href="mailto:romancemehelp@gmail.com">romancemehelp@gmail.com</a></p><p>For a story issue, include the title and chapter. For a technical issue, include your device and app version so we can understand what you’re seeing.</p></div></div></section>
-</main><footer><div class="wrap"><span>© 2026 RomanceMe · Romance stories starring you.</span><div><a href="https://tyfrank.github.io/romanceme-support/privacy.html">Privacy Policy</a><a href="https://tyfrank.github.io/romanceme-support/terms.html">Terms of Service</a><a href="#support">Support</a></div></div></footer>
+</main><footer><div class="wrap"><span>© 2026 RomanceMe · Romance stories starring you.</span><div><a href="https://tyfrank.github.io/romanceme-support/privacy.html">Privacy Policy</a><a href="https://tyfrank.github.io/romanceme-support/terms.html">Terms of Service</a><a href="#support">Support</a><button id="analytics-settings" type="button" hidden>Website analytics</button></div></div></footer>
+
+<aside id="analytics-choice" aria-label="Optional website analytics" hidden>
+<p><strong>Help us improve RomanceMe?</strong><br>With your permission, HeyCatch measures website visits, referral sources and link clicks using a browser identifier. This is optional and does not affect your reading or downloads. Change your choice anytime through “Website analytics” below.</p>
+<button id="analytics-yes" type="button">Allow analytics</button><button id="analytics-no" type="button">No thanks</button>
+</aside>
 </body></html>
